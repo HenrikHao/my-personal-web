@@ -21,3 +21,27 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Terraform files
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform.lock.hcl
+
+# Local .terraform directories
+terraform/.terraform/
+
+# Crash log files
+terraform/crash.log
+terraform/crash.*.log
+
+# Exclude provider binary
+terraform/terraform-provider-*
+
+# Exclude sensitive values
+terraform/*.tfvars
+terraform/*.tfvars.json
+
+# Include tfvars files that are tracked
+!terraform/example.tfvars
