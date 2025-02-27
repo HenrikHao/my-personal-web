@@ -1,0 +1,53 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const navLinks = [
+    {
+        name: "Home",
+        path: "/",
+    },
+    {
+        name: "About",
+        path: "/about",
+    },
+    {
+        name: "Projects",
+        path: "/projects",
+    },
+    {
+        name: "Experience",
+        path: "/experience",
+    },
+];
+
+const Navbar = () => {
+    return (
+        // <nav> typically tells the browser this is a navigation bar
+        // sticky top-0 z-50 bg-gray-800 shadow-md is a class that makes the navbar sticky to the top of the page, has a gray background, and a shadow
+        // max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 is a class that makes the navbar the full width of the page, with padding on the left and right
+        // flex items-center justify-between h-16 is a class that makes the navbar items centered and the height of the navbar
+        //Outer element for positioning and background
+        //Middle element for width constraints and padding
+        //Inner element for content layout
+        <nav class="sticky top-0 z-50 bg-gray-800 shadow-md">
+            <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-24">
+                    <div class="flex-shrink-0">
+                        <Link to="/" class="text-white font-bold text-xl md:text-2xl lg:text-3xl font-handlee tracking-wide">
+                            Henrik Hao <span class="ml-1">🧊</span>
+                        </Link>
+                    </div>
+                    <div class="hidden md:flex space-x-8 lg:space-x-12">
+                        {navLinks.map((link) => (
+                            <Link to={link.path} key={link.name} class="text-white text-base font-semibold md:text-lg font-default hover:text-gray-300">
+                                {link.name}
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    );
+};
+
+export default Navbar;
