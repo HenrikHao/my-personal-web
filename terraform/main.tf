@@ -105,3 +105,62 @@ resource "google_compute_global_forwarding_rule" "website_forwarding_rule" {
   port_range            = "443"
   load_balancing_scheme = "EXTERNAL_MANAGED"
 }
+
+# 6. Set up Firestore Database for Visit Counter
+resource "google_firestore_database" "database" {
+  name        = "visit-counter"
+  location_id = var.region
+  type        = "FIRESTORE_NATIVE"
+}
+
+# 7. Create Cloud Run service for the API
+resource "google_cloud_run_service" "visit_counter_api" {
+  name     = "visit-counter-api"
+  location = var.region
+
+  template {
+    spec {
+      containers {
+        image = "gcr.io/${var.project_id}/visit-counter-api:latest"
+        resources {
+          limits = {
+            cpu    = "1"
+            memory = "256Mi"
+          }
+        }
+        env {
+          name  = "PROJECT_ID"
+          value = var.project_id
+        }
+      }
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
+  }
+}
+
+# 8. Make the Cloud Run service publicly accessible
+resource "google_cloud_run_service_iam_binding" "public_access" {
+  location = google_cloud_run_service.visit_counter_api.location
+  service  = google_cloud_run_service.visit_counter_api.name
+  role     = "roles/run.invoker"
+  members  = ["allUsers"]
+}
+
+# 9. Create a service account for the Cloud Run service
+resource "google_service_account" "visit_counter_sa" {
+  account_id   = "visit-counter-sa"
+  display_name = "Visit Counter Service Account"
+}
+
+# 10. Grant Firestore access to the service account
+resource "google_project_iam_binding" "firestore_access" {
+  project = var.project_id
+  role    = "roles/datastore.user"
+  members = [
+    "serviceAccount:${google_service_account.visit_counter_sa.email}"
+  ]
+}
