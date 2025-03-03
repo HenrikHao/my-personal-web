@@ -2,10 +2,15 @@ import React from 'react';
 
 const Home = () => {
     return (
-        <div className="min-h-screen pt-16 flex items-center justify-center bg-gray-800">
-            <h1 className="text-4xl font-bold text-white">
+        <div className="flex flex-col items-center pt-24">
+            <h1 className="text-4xl font-bold text-white mb-8">
                 Welcome to My Website
             </h1>
+
+            {/* Your other content can go here */}
+            <div className="flex-grow">
+                {/* Main content */}
+            </div>
         </div>
     );
 };
