@@ -1,31 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const navLinks = [
     {
-        name: "Home",
-        path: "/",
-    },
-    {
         name: "About",
         path: "/about",
-    },
-    {
-        name: "Projects",
-        path: "/projects",
+        number: "01"
     },
     {
         name: "Experience",
         path: "/experience",
+        number: "02"
+    },
+    {
+        name: "Projects",
+        path: "/projects",
+        number: "03"
+    },
+    {
+        name: "Contact",
+        path: "/contact",
+        number: "04"
     },
 ];
 
 const Navbar = () => {
-
-    // Use state addBlur start with false and set to true when the user scrolls down 100px
+    // State for adding blur on scroll
     const [addBlur, setAddBlur] = useState(false);
+    // Get current location to determine active link
+    const location = useLocation();
 
-    // if the user scrolls down 100px, set addBlur to true
+    // Set blur state based on scroll position
     const handleScroll = () => {
         if (window.scrollY >= 100) {
             setAddBlur(true);
@@ -34,38 +39,42 @@ const Navbar = () => {
         }
     };
 
-    // useEffect is used to add an event listener to the window when the component mounts
-    // the last [] is for dependencies, empty means it will only run once
-    // handleScroll is the function that will be called when the user scrolls
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     return (
-        // <nav> typically tells the browser this is a navigation bar
-        // sticky top-0 z-50 bg-transparent shadow-none is a class that makes the navbar transparent and no shadow
-        // max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 is a class that makes the navbar the full width of the page, with padding on the left and right
-        // flex items-center justify-between h-16 is a class that makes the navbar items centered and the height of the navbar
-        //Outer element for positioning and background
-        //Middle element for width constraints and padding
-        //Inner element for content layout
-        <nav class={`fixed top-0 w-full z-50 ${addBlur ? 'backdrop-blur-md bg-gray-800/50' : 'bg-transparent'} transition-all duration-300`}>
-            <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-24">
-                    <div class="flex-shrink-0">
-                        <Link to="/" class="text-primary font-bold text-xl md:text-2xl lg:text-3xl font-handlee tracking-wide">
-                            Henrik Hao <span class="ml-1">🧊</span>
+        <nav className={`fixed top-0 w-full z-50 ${addBlur ? 'backdrop-blur-md bg-background/90' : 'bg-background'} transition-all duration-300`}>
+            {/* Use horizontal padding to match left-10/right-10 positions */}
+            <div className="px-10">
+                <div className="flex items-center justify-between h-24">
+                    <div className="flex-shrink-0">
+                        <Link to="/" className="text-lightgreen font-bold text-xl font-space-mono">
+                            Henrik Hao 🧊
                         </Link>
                     </div>
-                    <div class="hidden md:flex space-x-8 lg:space-x-12">
+                    <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
                         {navLinks.map((link) => (
-                            <Link to={link.path} key={link.name} class="text-primary text-base font-semibold md:text-lg font-default hover:text-gray-300">
-                                {link.name}
+                            <Link
+                                to={link.path}
+                                key={link.name}
+                                className="text-base font-semibold font-space-mono group"
+                            >
+                                <span className="text-lightgreen">{link.number}. </span>
+                                <span className={`${location.pathname === link.path ? 'text-lightgreen' : 'text-lightfont'} group-hover:text-lightgreen transition-colors duration-300`}>
+                                    {link.name}
+                                </span>
                             </Link>
                         ))}
+                        <a
+                            href="/resume.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-lightgreen border font-space-mono border-lightgreen rounded px-4 py-2 hover:bg-lightgreen/10 transition-all duration-300"
+                        >
+                            Resume
+                        </a>
                     </div>
                 </div>
             </div>

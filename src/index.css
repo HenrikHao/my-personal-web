@@ -1,12 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Handlee&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-handlee: 'Handlee', 'sans-serif';
   --font-default: "Poppins", "sans-serif";
+  --font-space-mono: "Space Mono", "sans-serif";
+  --color-lightgreen: #49C5B1;
+  --color-lightfont: #e6f1ff;
   --color-primary: #6B7175;
   --color-light: #C5E9EA;
-  --color-background: #aeb2b5;
+  --color-background: #1f2a44;
 }
 
 
@@ -70,4 +73,16 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Add this to your existing CSS */
+.writing-mode-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 0.2em;
+}
+
+.vertical-text {
+  display: inline-block;
+  transform: rotate(180deg);
 }
