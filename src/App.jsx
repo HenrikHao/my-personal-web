@@ -8,7 +8,7 @@ import Home from './pages/Home'; // Create this page or substitute with your con
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-gray-800">
+      <div className="flex flex-col min-h-screen bg-dark">
         <Navbar />
         <main className="flex-grow">
           <Routes>

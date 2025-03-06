@@ -3,7 +3,10 @@
 
 @theme {
   --font-handlee: 'Handlee', 'sans-serif';
-  --font-default: "Poppins", "sans-serif"
+  --font-default: "Poppins", "sans-serif";
+  --color-primary: #6B7175;
+  --color-light: #C5E9EA;
+  --color-background: #aeb2b5;
 }
 
 
@@ -24,6 +27,8 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  @apply bg-background text-white;
+  font-family: 'Inter', sans-serif;
 }
 
 h1 {

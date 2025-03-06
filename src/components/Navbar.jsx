@@ -56,13 +56,13 @@ const Navbar = () => {
             <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-24">
                     <div class="flex-shrink-0">
-                        <Link to="/" class="text-white font-bold text-xl md:text-2xl lg:text-3xl font-handlee tracking-wide">
+                        <Link to="/" class="text-primary font-bold text-xl md:text-2xl lg:text-3xl font-handlee tracking-wide">
                             Henrik Hao <span class="ml-1">🧊</span>
                         </Link>
                     </div>
                     <div class="hidden md:flex space-x-8 lg:space-x-12">
                         {navLinks.map((link) => (
-                            <Link to={link.path} key={link.name} class="text-white text-base font-semibold md:text-lg font-default hover:text-gray-300">
+                            <Link to={link.path} key={link.name} class="text-primary text-base font-semibold md:text-lg font-default hover:text-gray-300">
                                 {link.name}
                             </Link>
                         ))}
