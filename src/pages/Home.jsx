@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import About from './About';
+import Experience from './Experience';
 
 const Home = () => {
     return (
@@ -29,7 +30,7 @@ const Home = () => {
                         </div>
 
                         <Link to="/contact" className="inline-block">
-                            <button className="bg-transparent hover:bg-lightgreen text-lightgreen hover:text-dark font-semibold py-3 px-8 border border-lightgreen hover:border-transparent rounded transition-all duration-300 w-max">
+                            <button className="text-lightgreen border font-space-mono border-lightgreen rounded px-4 py-2 hover:bg-lightgreen/10 transition-all duration-300">
                                 Get In Touch
                             </button>
                         </Link>
@@ -39,6 +40,9 @@ const Home = () => {
 
             {/* About Section */}
             <About />
+
+            {/* Experience Section */}
+            <Experience />
         </>
     );
 };
