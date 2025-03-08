@@ -4,22 +4,22 @@ import { Link, useLocation } from 'react-router-dom';
 const navLinks = [
     {
         name: "About",
-        path: "/about",
+        path: "/#about",
         number: "01"
     },
     {
         name: "Experience",
-        path: "/experience",
+        path: "/#experience",
         number: "02"
     },
     {
         name: "Projects",
-        path: "/projects",
+        path: "/#projects",
         number: "03"
     },
     {
         name: "Contact",
-        path: "/contact",
+        path: "/#contact",
         number: "04"
     },
 ];
@@ -44,6 +44,26 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Handle smooth scrolling for anchor links
+    const handleClick = (e, path) => {
+        // Only handle anchor links
+        if (path.includes('#')) {
+            e.preventDefault();
+
+            // Extract the id from the path
+            const id = path.split('#')[1];
+            const element = document.getElementById(id);
+
+            if (element) {
+                // Scroll to the element
+                element.scrollIntoView({ behavior: 'smooth' });
+
+                // Update URL without page reload
+                window.history.pushState(null, '', path);
+            }
+        }
+    };
+
     return (
         <nav className={`fixed top-0 w-full z-50 ${addBlur ? 'backdrop-blur-md bg-background/90' : 'bg-background'} transition-all duration-300`}>
             {/* Use horizontal padding to match left-10/right-10 positions */}
@@ -56,16 +76,17 @@ const Navbar = () => {
                     </div>
                     <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
                         {navLinks.map((link) => (
-                            <Link
-                                to={link.path}
+                            <a
+                                href={link.path}
                                 key={link.name}
+                                onClick={(e) => handleClick(e, link.path)}
                                 className="text-base font-semibold font-space-mono group"
                             >
                                 <span className="text-lightgreen">{link.number}. </span>
-                                <span className={`${location.pathname === link.path ? 'text-lightgreen' : 'text-lightfont'} group-hover:text-lightgreen transition-colors duration-300`}>
+                                <span className={`${location.pathname + location.hash === link.path ? 'text-lightgreen' : 'text-lightfont'} group-hover:text-lightgreen transition-colors duration-300`}>
                                     {link.name}
                                 </span>
-                            </Link>
+                            </a>
                         ))}
                         <a
                             href="/resume.pdf"
