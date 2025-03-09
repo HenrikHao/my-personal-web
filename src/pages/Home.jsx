@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import About from './About';
 import Experience from './Experience';
 import Projects from './Projects';
+import Contact from './Contact';
 
 const Home = () => {
     return (
@@ -47,6 +48,9 @@ const Home = () => {
 
             {/* Projects Section */}
             <Projects />
+
+            {/* Contact Section */}
+            <Contact />
         </>
     );
 };
