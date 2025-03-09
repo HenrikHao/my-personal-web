@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import About from './About';
 import Experience from './Experience';
+import Projects from './Projects';
 
 const Home = () => {
     return (
@@ -43,6 +44,9 @@ const Home = () => {
 
             {/* Experience Section */}
             <Experience />
+
+            {/* Projects Section */}
+            <Projects />
         </>
     );
 };
