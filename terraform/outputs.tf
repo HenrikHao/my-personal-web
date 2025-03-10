@@ -9,6 +9,6 @@ output "bucket_url" {
 }
 
 output "bucket_name" {
-  value       = "gs://" + google_storage_bucket.website_bucket.name
+  value       = "gs://${google_storage_bucket.website_bucket.name}"
   description = "The name of the bucket"
 }
