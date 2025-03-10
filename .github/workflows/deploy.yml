@@ -55,9 +55,17 @@ jobs:
             -var="region=${{ secrets.GCP_REGION }}" \
             -var="domain_name=${{ secrets.DOMAIN_NAME }}"
       
+      - name: Get bucket name
+        id: get_bucket
+        run: |
+          cd terraform
+          BUCKET_NAME=$(terraform output -raw bucket_name || terraform output -raw bucket_url | sed 's|gs://||')
+          echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_OUTPUT
+          echo "Using bucket: $BUCKET_NAME"
+      
       - name: Upload files to GCS
         run: |
-          gsutil -m rsync -r build gs://$(cd terraform && terraform output -raw bucket_url | sed 's|gs://||')
+          gsutil -m rsync -r build gs://${{ steps.get_bucket.outputs.BUCKET_NAME }}
       
       - name: Output deployment information
         run: |
