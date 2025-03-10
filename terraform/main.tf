@@ -105,10 +105,3 @@ resource "google_compute_global_forwarding_rule" "website_forwarding_rule" {
   port_range            = "443"
   load_balancing_scheme = "EXTERNAL_MANAGED"
 }
-
-# 6. Set up Firestore Database for Visit Counter
-resource "google_firestore_database" "database" {
-  name        = "visit-counter"
-  location_id = var.region
-  type        = "FIRESTORE_NATIVE"
-}
