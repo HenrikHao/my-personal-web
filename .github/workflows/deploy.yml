@@ -59,11 +59,12 @@ jobs:
         id: get_bucket
         run: |
           cd terraform
-          # Run terraform output without color, then use grep to extract the valid bucket URL.
-          BUCKET_URL=$(terraform output -no-color -raw bucket_name | grep -o 'gs://[a-zA-Z0-9-]*')
+          # Capture only the valid bucket URL (first match) and remove any extra output.
+          BUCKET_URL=$(terraform output -no-color -raw bucket_name 2>/dev/null | grep -o 'gs://[a-zA-Z0-9-]*' | head -n 1)
           # Remove the "gs://" prefix.
           BUCKET_NAME=$(echo "$BUCKET_URL" | sed 's|gs://||')
-          echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_OUTPUT
+          # Use printf to ensure proper formatting when appending.
+          printf "BUCKET_NAME=%s\n" "$BUCKET_NAME" >> $GITHUB_OUTPUT
           echo "Using bucket: $BUCKET_NAME"
       
       - name: Upload files to GCS
