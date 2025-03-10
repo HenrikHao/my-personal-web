@@ -66,14 +66,8 @@ const Contact = () => {
         {
             name: "Email",
             icon: <FaEnvelope size={24} />,
-            url: "mailto:your.email@example.com",
+            url: "mailto:henrikhao@outlook.com",
             color: "hover:text-red-400"
-        },
-        {
-            name: "Twitter",
-            icon: <FaTwitter size={24} />,
-            url: "https://twitter.com/yourusername",
-            color: "hover:text-blue-400"
         }
     ];
 
