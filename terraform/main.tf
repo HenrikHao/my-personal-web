@@ -17,7 +17,7 @@ provider "google" {
 # Format: resource resource_type resource_name
 resource "google_storage_bucket" "website_bucket" {
   name          = var.domain_name
-  location      = var.region
+  location      = upper(var.region)
   storage_class = "STANDARD"
 
   website {
