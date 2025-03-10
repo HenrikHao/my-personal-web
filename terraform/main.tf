@@ -44,9 +44,22 @@ resource "google_storage_bucket_object" "website_files" {
   bucket   = google_storage_bucket.website_bucket.name
   source   = "../build/${each.value}"
   content_type = lookup({
-    ".html" = "text/html",
-    ".js"   = "application/javascript",
-    ".css"  = "text/css"
+    ".html"  = "text/html",
+    ".js"    = "application/javascript",
+    ".css"   = "text/css",
+    ".png"   = "image/png",
+    ".jpg"   = "image/jpeg",
+    ".jpeg"  = "image/jpeg",
+    ".gif"   = "image/gif",
+    ".svg"   = "image/svg+xml",
+    ".json"  = "application/json",
+    ".woff"  = "font/woff",
+    ".woff2" = "font/woff2",
+    ".ttf"   = "font/ttf",
+    ".eot"   = "application/vnd.ms-fontobject",
+    ".otf"   = "font/otf",
+    ".ico"   = "image/x-icon",
+    ".pdf"   = "application/pdf"
   }, regex("\\.[^.]+$", each.value), "application/octet-stream")
 }
 

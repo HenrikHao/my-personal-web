@@ -1,0 +1,64 @@
+name: Deploy to GCS
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build React app
+        run: npm run build
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: '1.5.0'
+      
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      
+      - name: Setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+      
+      - name: Initialize Terraform
+        run: |
+          cd terraform
+          terraform init
+      
+      - name: Apply Terraform
+        run: |
+          cd terraform
+          terraform apply -auto-approve \
+            -var="project_id=${{ secrets.GCP_PROJECT_ID }}" \
+            -var="region=${{ secrets.GCP_REGION }}" \
+            -var="domain_name=${{ secrets.DOMAIN_NAME }}"
+      
+      - name: Upload files to GCS
+        run: |
+          gsutil -m rsync -r build gs://${{ secrets.DOMAIN_NAME }}
+      
+      - name: Output deployment information
+        run: |
+          cd terraform
+          echo "Load Balancer IP: $(terraform output -raw load_balancer_ip)"
+          echo "Bucket URL: $(terraform output -raw bucket_url)"
