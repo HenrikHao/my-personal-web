@@ -40,10 +40,12 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
       
-      - name: Initialize Terraform
+      - name: Initialize Terraform with backend config
         run: |
           cd terraform
-          terraform init
+          terraform init \
+            -backend-config="bucket=${{ secrets.TF_STATE_BUCKET }}" \
+            -backend-config="prefix=terraform/state"
       
       - name: Apply Terraform
         run: |
@@ -55,7 +57,7 @@ jobs:
       
       - name: Upload files to GCS
         run: |
-          gsutil -m rsync -r build gs://${{ secrets.DOMAIN_NAME }}
+          gsutil -m rsync -r build gs://${{ secrets.DOMAIN_NAME }}-website
       
       - name: Output deployment information
         run: |

@@ -5,6 +5,8 @@ terraform {
       version = "6.22.0"
     }
   }
+
+  backend "gcs" {} # Configuration will be provided via CLI
 }
 
 provider "google" {
@@ -16,7 +18,7 @@ provider "google" {
 # 1. Create Cloud Storage Bucket
 # Format: resource resource_type resource_name
 resource "google_storage_bucket" "website_bucket" {
-  name          = var.domain_name
+  name          = "${var.domain_name}-website"
   location      = upper(var.region)
   storage_class = "STANDARD"
 
