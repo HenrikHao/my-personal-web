@@ -59,10 +59,10 @@ jobs:
         id: get_bucket
         run: |
           cd terraform
-          # Capture the bucket URL, discarding any debug or error output, and remove newlines.
-          BUCKET_URL=$(terraform output -raw bucket_url 2>/dev/null | tr -d '\n')
+          # Run terraform output without color, then use grep to extract the valid bucket URL.
+          BUCKET_URL=$(terraform output -no-color -raw bucket_name | grep -o 'gs://[a-zA-Z0-9-]*')
           # Remove the "gs://" prefix.
-          BUCKET_NAME=$(echo $BUCKET_URL | sed 's|gs://||')
+          BUCKET_NAME=$(echo "$BUCKET_URL" | sed 's|gs://||')
           echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_OUTPUT
           echo "Using bucket: $BUCKET_NAME"
       
