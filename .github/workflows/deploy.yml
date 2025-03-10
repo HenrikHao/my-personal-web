@@ -59,7 +59,8 @@ jobs:
         id: get_bucket
         run: |
           cd terraform
-          BUCKET_NAME=$(terraform output -raw bucket_name || terraform output -raw bucket_url | sed 's|gs://||')
+          BUCKET_URL=$(terraform output -raw bucket_url)
+          BUCKET_NAME=$(echo $BUCKET_URL | sed 's|gs://||')
           echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_OUTPUT
           echo "Using bucket: $BUCKET_NAME"
       
