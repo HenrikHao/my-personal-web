@@ -57,7 +57,7 @@ jobs:
       
       - name: Upload files to GCS
         run: |
-          gsutil -m rsync -r build gs://${{ secrets.DOMAIN_NAME }}-website
+          gsutil -m rsync -r build gs://$(cd terraform && terraform output -raw bucket_url | sed 's|gs://||')
       
       - name: Output deployment information
         run: |

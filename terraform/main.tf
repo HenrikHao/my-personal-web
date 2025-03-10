@@ -18,7 +18,7 @@ provider "google" {
 # 1. Create Cloud Storage Bucket
 # Format: resource resource_type resource_name
 resource "google_storage_bucket" "website_bucket" {
-  name          = "${var.domain_name}-website"
+  name          = replace("${var.domain_name}-website", ".", "-")
   location      = upper(var.region)
   storage_class = "STANDARD"
 
