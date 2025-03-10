@@ -69,7 +69,7 @@ jobs:
       
       - name: Upload files to GCS
         run: |
-          gsutil -m rsync -r build gs://${{ steps.get_bucket.outputs.BUCKET_NAME }}
+            gsutil -m rsync -r build/ gs://${{ steps.get_bucket.outputs.BUCKET_NAME }}/
       
       - name: Output deployment information
         run: |
