@@ -81,9 +81,9 @@ const Experience = () => {
             location: "Melbourne, Australia",
             period: "November 2024 - March 2025",
             details: [
-                "Developed and optimized NLP pipelines integrating encoder-only models (BERT-based) and decoder-only models (Biomistral, LLaMA, DeepSeek) for biomedical systematic reviews and article recommendations, achieving performance on par with human annotators. Publications to be appeared.",
-                "Successfully deployed advanced language models such as LLaMA and Mistral locally with HuggingFace and HPC, and integrated APIs from DeepSeek and Gemini, creating a robust and scalable pipeline for real-time data processing.",
-                "Managed and optimized NLP tasks on high-performance computing (HPC) clusters, effectively processing over 15,000 medical articles, which significantly enhanced data throughput and computational efficiency."]
+                "Designed and optimized natural language processing (NLP) pipelines leveraging encoder-only (BERT-based) and decoder-only large language models (LLama, DeepSeek, Qwen) tailored for biomedical systematic reviews and literature recommendations. Successfully achieved high-precision performance in document classification tasks, matching state-of-the-art benchmarks. Publications forthcoming.",
+                "Deployed sophisticated language models, including Llama3.3-70B and Mistral-7B, utilizing HuggingFace frameworks integrated with High-Performance Computing (HPC) resources. Processed over 15,000 medical publications, enabling rapid and efficient literature analysis at scale."
+            ]
         },
         {
             name: "Melbourne Space Program",
@@ -92,9 +92,9 @@ const Experience = () => {
             location: "Melbourne, Australia",
             period: "March 2023 - June 2024",
             details: [
-                "Directed a specialized team in the development and optimization of advanced camera systems for a humanoid robotic bartender. Key tasks include pioneering techniques for precise cup detection and state-of-the-art liquid segmentation algorithms.",
-                "Collected an on-site liquid-pouring dataset and replicated a U-Net model from a research paper for liquid segmentation to monitor pouring accuracy. Utilized YOLOv4 with an OAK-D camera for bottle classification.",
-                "Managed and improved the code structure within the Robot Operating System (ROS) framework. Designed the architecture and messaging system to coordinate multiple nodes, including the chatbot, camera, robotic arm, and end-effector."
+                "Led a specialized team to design, develop, and optimize advanced camera systems for a humanoid robotic bartender. Innovated techniques for precise cup detection and developed state-of-the-art liquid segmentation algorithms, significantly enhancing robotic perception capabilities.",
+                "Collected an on-site liquid-pouring dataset and replicated a U-Net model for liquid segmentation, ensuring high accuracy in pouring tasks. Integrated YOLOv4 object detection with an OAK-D camera for robust bottle classification.",
+                "Managed and refined the Robot Operating System (ROS) codebase, architecting efficient messaging systems to coordinate diverse nodes, including chatbot interfaces, camera sensors, robotic arms, and end-effectors, ensuring seamless system integration and performance."
             ]
         },
         {
