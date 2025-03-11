@@ -27,8 +27,8 @@ const navLinks = [
 const Navbar = () => {
     // State for adding blur on scroll
     const [addBlur, setAddBlur] = useState(false);
-    // Get current location to determine active link
-    const location = useLocation();
+    // Add state to track active section
+    const [activeSection, setActiveSection] = useState('');
 
     // Set blur state based on scroll position
     const handleScroll = () => {
@@ -36,6 +36,29 @@ const Navbar = () => {
             setAddBlur(true);
         } else {
             setAddBlur(false);
+        }
+
+        // Determine active section based on scroll position
+        const sections = navLinks.map(link => link.path.split('#')[1]);
+
+        let foundActiveSection = false;
+
+        for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+                const rect = element.getBoundingClientRect();
+                // If the element is in the viewport (with some buffer for better UX)
+                if (rect.top <= 200 && rect.bottom >= 200) {
+                    setActiveSection(section);
+                    foundActiveSection = true;
+                    break;
+                }
+            }
+        }
+
+        // If no section is in view, clear the active section
+        if (!foundActiveSection) {
+            setActiveSection('');
         }
     };
 
@@ -60,8 +83,21 @@ const Navbar = () => {
 
                 // Update URL without page reload
                 window.history.pushState(null, '', path);
+
+                // Update active section
+                setActiveSection(id);
             }
         }
+    };
+
+    // Handle home link click
+    const handleHomeClick = () => {
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Clear active section
+        setActiveSection('');
+        // Update URL
+        window.history.pushState(null, '', '/');
     };
 
     return (
@@ -70,7 +106,11 @@ const Navbar = () => {
             <div className="px-10">
                 <div className="flex items-center justify-between h-24">
                     <div className="flex-shrink-0">
-                        <Link to="/" className="text-lightgreen font-bold text-xl font-space-mono">
+                        <Link
+                            to="/"
+                            className="text-lightgreen font-bold text-xl font-space-mono"
+                            onClick={handleHomeClick}
+                        >
                             Henrik Hao 🧊
                         </Link>
                     </div>
@@ -83,7 +123,7 @@ const Navbar = () => {
                                 className="text-base font-semibold font-space-mono group"
                             >
                                 <span className="text-lightgreen">{link.number}. </span>
-                                <span className={`${location.pathname + location.hash === link.path ? 'text-lightgreen' : 'text-lightfont'} group-hover:text-lightgreen transition-colors duration-300`}>
+                                <span className={`${activeSection === link.path.split('#')[1] ? 'text-lightgreen' : 'text-lightfont'} group-hover:text-lightgreen transition-colors duration-300`}>
                                     {link.name}
                                 </span>
                             </a>
