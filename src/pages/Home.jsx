@@ -30,12 +30,11 @@ const Home = () => {
                                 Primarily interested in NLP and Cloud Development.
                             </p>
                         </div>
-
-                        <Link to="/contact" className="inline-block">
+                        <a href="/#contact">
                             <button className="text-lightgreen border font-space-mono border-lightgreen rounded px-4 py-2 hover:bg-lightgreen/10 transition-all duration-300">
                                 Get In Touch
                             </button>
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>
