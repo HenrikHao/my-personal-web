@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaTwitter } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+    const form = useRef();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -23,10 +25,16 @@ const Contact = () => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate form submission
         try {
-            // Replace this with your actual form submission logic
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            // Replace these with your actual EmailJS service ID, template ID, and public key
+            const result = await emailjs.sendForm(
+                'YOUR_SERVICE_ID',
+                'YOUR_TEMPLATE_ID',
+                form.current,
+                'YOUR_PUBLIC_KEY'
+            );
+
+            console.log('Email sent successfully:', result.text);
 
             setSubmitStatus({
                 success: true,
@@ -41,6 +49,7 @@ const Contact = () => {
                 message: ''
             });
         } catch (error) {
+            console.error('Email sending failed:', error);
             setSubmitStatus({
                 success: false,
                 message: "Something went wrong. Please try again later."
@@ -93,7 +102,7 @@ const Contact = () => {
                     <div className="flex flex-col lg:flex-row gap-12">
                         {/* Contact Form */}
                         <div className="lg:w-2/3">
-                            <form onSubmit={handleSubmit} className="space-y-6">
+                            <form ref={form} onSubmit={handleSubmit} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label htmlFor="name" className="block text-lightfont mb-2 font-space-mono">Name</label>
