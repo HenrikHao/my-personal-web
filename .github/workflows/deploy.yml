@@ -5,6 +5,11 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+env:
+  VITE_REACT_APP_EMAILJS_SERVICE_ID: ${{ secrets.VITE_REACT_APP_EMAILJS_SERVICE_ID }}
+  VITE_REACT_APP_EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_REACT_APP_EMAILJS_TEMPLATE_ID }}
+  VITE_REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.VITE_REACT_APP_EMAILJS_PUBLIC_KEY }}
+  
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -23,10 +28,6 @@ jobs:
         run: npm ci
       
       - name: Build React app
-        env:
-          VITE_REACT_APP_EMAILJS_SERVICE_ID: ${{ secrets.VITE_REACT_APP_EMAILJS_SERVICE_ID }}
-          VITE_REACT_APP_EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_REACT_APP_EMAILJS_TEMPLATE_ID }}
-          VITE_REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.VITE_REACT_APP_EMAILJS_PUBLIC_KEY }}
         run: npm run build
       
       - name: Setup Terraform
