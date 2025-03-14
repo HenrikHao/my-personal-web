@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaTwitter } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 
@@ -13,16 +13,6 @@ const Contact = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
 
-    // Initialize EmailJS when component mounts
-    useEffect(() => {
-        if (process.env.REACT_APP_EMAILJS_PUBLIC_KEY) {
-            emailjs.init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY);
-            console.log('EmailJS initialized with public key');
-        } else {
-            console.error('EmailJS public key is missing');
-        }
-    }, []);
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -36,20 +26,12 @@ const Contact = () => {
         setIsSubmitting(true);
 
         try {
-            console.log('EmailJS Service ID:', process.env.REACT_APP_EMAILJS_SERVICE_ID);
-            console.log('EmailJS Template ID:', process.env.REACT_APP_EMAILJS_TEMPLATE_ID);
-
-            if (!process.env.REACT_APP_EMAILJS_SERVICE_ID ||
-                !process.env.REACT_APP_EMAILJS_TEMPLATE_ID ||
-                !process.env.REACT_APP_EMAILJS_PUBLIC_KEY) {
-                throw new Error('EmailJS configuration is missing. Please check your environment variables.');
-            }
-
+            // Replace these with your actual EmailJS service ID, template ID, and public key
             const result = await emailjs.sendForm(
-                process.env.REACT_APP_EMAILJS_SERVICE_ID,
-                process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+                import.meta.env.VITE_REACT_APP_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_REACT_APP_EMAILJS_TEMPLATE_ID,
                 form.current,
-                process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+                import.meta.env.VITE_REACT_APP_EMAILJS_PUBLIC_KEY
             );
 
             console.log('Email sent successfully:', result.text);
