@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaTwitter } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 
@@ -12,6 +12,16 @@ const Contact = () => {
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
+
+    // Initialize EmailJS when component mounts
+    useEffect(() => {
+        if (process.env.REACT_APP_EMAILJS_PUBLIC_KEY) {
+            emailjs.init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY);
+            console.log('EmailJS initialized with public key');
+        } else {
+            console.error('EmailJS public key is missing');
+        }
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
